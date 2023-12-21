@@ -2,7 +2,7 @@
 Merge mp3 files and set correct audio length using foobar2000 with an automated python script. These scripts can merge all files in one directory or create one file for each subdirectory.
 
 
-![merge mp3 files from subdirectories](/mergemp3subdirs.jpg)
+![merge mp3 files from subdirectories](https://github.com/carsten-engelke/mp3tools/blob/main/mergemp3subdirs.jpg)
  - merge-mp3.py: merging script, works with foobar2000
  - pack-subdirs.py: pack files into grouped subdirectories (good for large audiobooks)
  - unpack-subdirs.py: unpack files from grouped subdirectories (undo pack-subdirs.py)

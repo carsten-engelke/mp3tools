@@ -1,7 +1,7 @@
 # Merge mp3 files from the current directory or from subfolders (each into one mp3 file)
 # Group files into subfolders. Create groups from alphabet or create groups of a certain size.
 # Ungroup files from subfolders. Create groups from alphabet or create groups of a certain size.
-# Carsten Engelke 2020 under MIT-license.
+# Carsten Engelke 2023
 # version:
 #    0.1.0  initial port from windows script, introducing automation
 #    0.2.0  bug corrected foobar needs to be called from working directory as the command line plugin cannot handle empty
@@ -10,6 +10,8 @@
 #    1.0.1  migrated all scripts into one module
 #    1.0.4-6  corrected auto wait time option
 #    1.0.7  adjusted standard variables -> file-filter is now .mp3, copy-mode is off, removesubdir-mode is on and subdir-filter is set to subdir- for safety purposes
+#    1.2.0  released as pi/ci version
+#    1.2.1  testing makefile under windows
 
 import os
 import subprocess
