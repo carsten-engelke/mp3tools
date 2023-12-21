@@ -1,85 +1,47 @@
-
-# Python Project Template
-
-A low dependency and really simple to start project template for Python Projects.
-
-See also 
-- [Flask-Project-Template](https://github.com/rochacbruno/flask-project-template/) for a full feature Flask project including database, API, admin interface, etc.
-- [FastAPI-Project-Template](https://github.com/rochacbruno/fastapi-project-template/) The base to start an openapi project featuring: SQLModel, Typer, FastAPI, JWT Token Auth, Interactive Shell, Management Commands.
-
-### HOW TO USE THIS TEMPLATE
-
-> **DO NOT FORK** this is meant to be used from **[Use this template](https://github.com/rochacbruno/python-project-template/generate)** feature.
-
-1. Click on **[Use this template](https://github.com/rochacbruno/python-project-template/generate)**
-3. Give a name to your project  
-   (e.g. `my_awesome_project` recommendation is to use all lowercase and underscores separation for repo names.)
-3. Wait until the first run of CI finishes  
-   (Github Actions will process the template and commit to your new repo)
-4. If you want [codecov](https://about.codecov.io/sign-up/) Reports and Automatic Release to [PyPI](https://pypi.org)  
-  On the new repository `settings->secrets` add your `PYPI_API_TOKEN` and `CODECOV_TOKEN` (get the tokens on respective websites)
-4. Read the file [CONTRIBUTING.md](CONTRIBUTING.md)
-5. Then clone your new project and happy coding!
-
-> **NOTE**: **WAIT** until first CI run on github actions before cloning your new project.
-
-### What is included on this template?
-
-- 🖼️ Templates for starting multiple application types:
-  * **Basic low dependency** Python program (default) [use this template](https://github.com/rochacbruno/python-project-template/generate)
-  * **Flask** with database, admin interface, restapi and authentication [use this template](https://github.com/rochacbruno/flask-project-template/generate).
-  **or Run `make init` after cloning to generate a new project based on a template.**
-- 📦 A basic [setup.py](setup.py) file to provide installation, packaging and distribution for your project.  
-  Template uses setuptools because it's the de-facto standard for Python packages, you can run `make switch-to-poetry` later if you want.
-- 🤖 A [Makefile](Makefile) with the most useful commands to install, test, lint, format and release your project.
-- 📃 Documentation structure using [mkdocs](http://www.mkdocs.org)
-- 💬 Auto generation of change log using **gitchangelog** to keep a HISTORY.md file automatically based on your commit history on every release.
-- 🐋 A simple [Containerfile](Containerfile) to build a container image for your project.  
-  `Containerfile` is a more open standard for building container images than Dockerfile, you can use buildah or docker with this file.
-- 🧪 Testing structure using [pytest](https://docs.pytest.org/en/latest/)
-- ✅ Code linting using [flake8](https://flake8.pycqa.org/en/latest/)
-- 📊 Code coverage reports using [codecov](https://about.codecov.io/sign-up/)
-- 🛳️ Automatic release to [PyPI](https://pypi.org) using [twine](https://twine.readthedocs.io/en/latest/) and github actions.
-- 🎯 Entry points to execute your program using `python -m <mp3tools>` or `$ mp3tools` with basic CLI argument parsing.
-- 🔄 Continuous integration using [Github Actions](.github/workflows/) with jobs to lint, test and release your project on Linux, Mac and Windows environments.
-
-> Curious about architectural decisions on this template? read [ABOUT_THIS_TEMPLATE.md](ABOUT_THIS_TEMPLATE.md)  
-> If you want to contribute to this template please open an [issue](https://github.com/rochacbruno/python-project-template/issues) or fork and send a PULL REQUEST.
-
-[❤️ Sponsor this project](https://github.com/sponsors/rochacbruno/)
-
-<!--  DELETE THE LINES ABOVE THIS AND WRITE YOUR PROJECT README BELOW -->
-
----
 # mp3tools
+Merge mp3 files and set correct audio length using foobar2000 with an automated python script. These scripts can merge all files in one directory or create one file for each subdirectory.
 
-[![codecov](https://codecov.io/gh/carsten-engelke/mp3tools/branch/main/graph/badge.svg?token=mp3tools_token_here)](https://codecov.io/gh/carsten-engelke/mp3tools)
-[![CI](https://github.com/carsten-engelke/mp3tools/actions/workflows/main.yml/badge.svg)](https://github.com/carsten-engelke/mp3tools/actions/workflows/main.yml)
 
-Awesome mp3tools created by carsten-engelke
+![merge mp3 files from subdirectories](/mergemp3subdirs.jpg)
+ - merge-mp3.py: merging script, works with foobar2000
+ - pack-subdirs.py: pack files into grouped subdirectories (good for large audiobooks)
+ - unpack-subdirs.py: unpack files from grouped subdirectories (undo pack-subdirs.py)
 
-## Install it from PyPI
+## Version
+1.2.0 Added PI/CI Support thanks to https://github.com/rochacbruno/python-project-template
 
-```bash
-pip install mp3tools
+1.0.0 release version. Ported to vscode.
+
+0.2.0 bug corrected foobar needs to be called from working directory as the command line plugin cannot handle empty spaces in file names or paths given by command line
+
+0.1.0 initial release. Port from windows script to python, introducing automation
+
+## Requirements
+- Python (script was created using python 3.7.0) (https://www.python.org/)
+- foobar2000 (https://www.foobar2000.org/)
+
+## Installation
+- copy mergeMp3.py into the directory in which the files to merge are contained.
+- run the script and follow the instructions, alternatively use the following command line
+
+Command-line-use:
 ```
+python mergeMp3.py [dir] [sub] [foobarpath] [autowaittime]
+    [dir] determines the directory in which to perform. Use '.' to select the current directory
+    [sub] determines wheter all mp3 files in subfolders should be merged into one file each. ('true' to do so)")
+    [foobarpath] determines the path to your foobar2000 installation. Please provide in case it differs from 'C:/Program Files (x86)/foobar2000/foobar2000.exe'
+    [autowaittime] determines whether to automatically clos foobar2000 after some seconds. Use -1 to disable and any number to set the waiting time.
 
-## Usage
+python pack-subdirs.py [group-size] [dir] [filter] [copy-mode]
+    [group-size] determines the number of files to put into each directory
+    [dir] determines the directory in which to perform the script. Use '.' to select the current directory
+    [filter] Filter the file list according to this
+    [copy-mode] If 'True', the files are copied into the created subfolders. If 'False' they are moved (Use with caution).
 
-```py
-from mp3tools import BaseClass
-from mp3tools import base_function
-
-BaseClass().base_method()
-base_function()
+python unpack-subdirs.py [dir] [subdir-filter] [filter] [copy-mode] [remove-dir]")
+    [dir] determines the directory in which to perform the script. Use '.' to select the current directory
+    [subdir-filter] Filter the subdir list according to this. Use '*' to select any subdirectory
+    [filter] Filter the file list according to this
+    [copy-mode] If 'True', the files are copied into the parent folder. If 'False' they are moved (Use with caution).
+    [remove-dir] If 'True', the subdirectories are deleted. If 'False' they are left as they are.
 ```
-
-```bash
-$ python -m mp3tools
-#or
-$ mp3tools
-```
-
-## Development
-
-Read the [CONTRIBUTING.md](CONTRIBUTING.md) file.

@@ -3,3 +3,8 @@
 # Add the requirements you need to this file.
 # or run `make init` to create this file automatically based on the template.
 # You can also run `make switch-to-poetry` to use the poetry package manager.
+autopep8>=1
+natsort>=7
+pycodestyle>=2
+pynput>=1
+six>=1
