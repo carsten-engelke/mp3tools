@@ -1,17 +1,7 @@
 # Merge mp3 files from the current directory or from subfolders (each into one mp3 file)
-# Group files into subfolders. Create groups from alphabet or create groups of a certain size.
-# Ungroup files from subfolders. Create groups from alphabet or create groups of a certain size.
+# Group files into subfolders. Create groups of a certain size.
+# Ungroup files from subfolders.
 # Carsten Engelke 2023
-# version:
-#    0.1.0  initial port from windows script, introducing automation
-#    0.2.0  bug corrected foobar needs to be called from working directory as the command line plugin cannot handle empty
-#           spaces in file names or paths given by command line
-#    1.0.0  first automated working version, migrated to vs code
-#    1.0.1  migrated all scripts into one module
-#    1.0.4-6  corrected auto wait time option
-#    1.0.7  adjusted standard variables -> file-filter is now .mp3, copy-mode is off, removesubdir-mode is on and subdir-filter is set to subdir- for safety purposes
-#    1.2.0  released as pi/ci version
-#    1.2.1  testing makefile under windows
 
 import os
 import subprocess
@@ -150,9 +140,9 @@ def mergemp3cli(args):
 
     print("mp3-tools merge-mp3 {0}".format(VERSIONSTR))
     print(
-        "Usage: python mp3-tools.py merge-mp3 [dir] [subdir-mode] [foobarpath] [autowaittime]")
+        "Usage: mp3tools merge-mp3 [dir] [subdir-mode] [foobarpath] [autowaittime]")
     print("    [dir] determines the directory in which to perform the script. Use '.' to select the current directory")
-    print("    [subdir-mode] determines wheter all mp3 files in subfolders should be merged into one file each. ('true' to do so)")
+    print("    [subdir-mode] determines wheter all mp3 files in subfolders should be merged into one file each. ('True' to do so)")
     print("    [foobarpath] determines the path to your foobar2000 installation. Please provide in case it differs from 'C:/Program Files (x86)/foobar2000/foobar2000.exe'. Use '.' to remain unchanged.")
     print("    [autowaittime] determines whether to automatically clos foobar2000 after some seconds. Use -1 to disable and any number to set the waiting time.")
 
@@ -217,7 +207,7 @@ def packsubdirscli(args):
     global copymode
 
     print("pack-subdirs {0}".format(VERSIONSTR))
-    print("Use: mp3toolsce pack-subdirs [group-size] [dir] [file-filter] [copy-mode]")
+    print("Use: mp3tools pack-subdirs [group-size] [dir] [file-filter] [copy-mode]")
     print("    [group-size] determines the number of files to put into each directory")
     print("    [dir] determines the directory in which to perform the script. Use '.' to select the current directory")
     print("    [file-filter] Filter the file list according to this.")
@@ -290,7 +280,7 @@ def unpackdirscli(args):
     global removesubdirmode
 
     print("unpack-subdirs {0}".format(VERSIONSTR))
-    print("Use: mp3toolsce unpack-subdirs [dir] [subdir-filter] [file-filter] [copy-mode] [removesubdir-mode]")
+    print("Use: mp3tools unpack-subdirs [dir] [subdir-filter] [file-filter] [copy-mode] [removesubdir-mode]")
     print("    [dir] determines the directory in which to perform the script. Use '.' to select the current directory")
     print("    [subdir-filter] Filter the subdir list according to this. Use '*' to select any subdirectory")
     print("    [file-filter] Filter the file list according to this.")
@@ -376,10 +366,10 @@ def main():
     """
     global autowaittime
 
-    print ("Usage: mp3toolsce merge-mp3 [dir] [subdir-mode] [foobarpath] [autowaittime]")
-    print ("Usage: mp3toolsce pack-subdirs [group-size] [dir] [file-filter] [copy-mode]")
-    print ("Usage: mp3toolsce unpack-subdirs [dir] [subdir-filter] [file-filter] [copy-mode] [removesubdir-mode]")
-    print ("Usage: mp3toolsce wait=seconds")
+    print ("Usage: mp3tools merge-mp3 [dir] [subdir-mode] [foobarpath] [autowaittime]")
+    print ("Usage: mp3tools pack-subdirs [group-size] [dir] [file-filter] [copy-mode]")
+    print ("Usage: mp3tools unpack-subdirs [dir] [subdir-filter] [file-filter] [copy-mode] [removesubdir-mode]")
+    print ("Usage: mp3tools wait=seconds")
     print ("Note: This script depends on a foobar2000 installation! (Get it from: https://www.foobar2000.org/)")
     args = sys.argv[1:]
     if (len(args) > 0):
