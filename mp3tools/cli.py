@@ -1,4 +1,4 @@
-# Merge mp3 files from the current directory or from subfolders (each into one mp3 file)
+# # Merge mp3 files from the current directory or from subfolders (each into one mp3 file)
 # Group files into subfolders. Create groups of a certain size.
 # Ungroup files from subfolders.
 # Carsten Engelke 2023
@@ -7,11 +7,9 @@ import os
 import subprocess
 import sys
 import time
-from os.path import basename
 
-import natsort
 from _thread import start_new_thread
-from pynput.keyboard import Controller, Key
+from pynput.keyboard import Controller, Key # type: ignore
 import math as m
 from shutil import copyfile
 
