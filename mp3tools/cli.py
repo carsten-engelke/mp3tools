@@ -71,49 +71,54 @@ def mergedir(dir, copytoparent):
 
 
 def callfoobar(foobarpath, workdir, filelist, autowaittime):
-    filenamelist = []
-    for f in filelist:
-        filenamelist.append(f.name)
-    rebuildcmdlist = [foobarpath]
-    rebuildcmdlist.append("/runcmd-files=Util/Rebuild")
-    rebuildcmdlist.extend(filenamelist)
-    fixcmdlist = [foobarpath]
-    fixcmdlist.append("/runcmd-files=Util/Fix")
-    fixcmdlist.extend(filenamelist)
-    minimizecmdlist = [foobarpath]
-    minimizecmdlist.append(
-        "/runcmd-files=Utilities/Optimize file layout + minimize file size")
-    minimizecmdlist.extend(filenamelist)
-    os.chdir(workdir)
-    if (autowaittime >= 0):
-        print("Calling foobar2000 for rebuilding the mp3 stream. Automatically ending in:" +
-              str(autowaittime*len(filenamelist)), end="...", flush=True)
-        start_new_thread(
-            closefoobar, (foobarpath, autowaittime, len(filelist), True))
+    # if not in windows skip foobar2000 execution
+    if os.name == "nt":
+        filenamelist = []
+        for f in filelist:
+            filenamelist.append(f.name)
+        rebuildcmdlist = [foobarpath]
+        rebuildcmdlist.append("/runcmd-files=Util/Rebuild")
+        rebuildcmdlist.extend(filenamelist)
+        fixcmdlist = [foobarpath]
+        fixcmdlist.append("/runcmd-files=Util/Fix")
+        fixcmdlist.extend(filenamelist)
+        minimizecmdlist = [foobarpath]
+        minimizecmdlist.append(
+            "/runcmd-files=Utilities/Optimize file layout + minimize file size")
+        minimizecmdlist.extend(filenamelist)
+        os.chdir(workdir)
+        if (autowaittime >= 0):
+            print("Calling foobar2000 for rebuilding the mp3 stream. Automatically ending in:" +
+                str(autowaittime*len(filenamelist)), end="...", flush=True)
+            start_new_thread(
+                closefoobar, (foobarpath, autowaittime, len(filelist), True))
+        else:
+            print("Calling foobar2000 for rebuilding the mp3 stream. Please close the foobar window to continue", end="...", flush=True)
+        subprocess.call(rebuildcmdlist)
+        print("done")
+        if (autowaittime >= 0):
+            print("Calling foobar2000 for fixing the mp3 metadata length. Automatically ending in:" +
+                str(autowaittime*len(filenamelist)/2), end="...", flush=True)
+            start_new_thread(
+                closefoobar, (foobarpath, autowaittime/2, len(filelist), True))
+        else:
+            print("Calling foobar2000 for fixing the mp3 metadata length. Please close the foobar window to continue", end="...", flush=True)
+        subprocess.call(fixcmdlist)
+        print("done")
+        if (autowaittime >= 0):
+            print("Calling foobar2000 for minimizing file. Automatically ending in " +
+                str(autowaittime*len(filenamelist)/3), end="...", flush=True)
+            start_new_thread(
+                closefoobar, (foobarpath, autowaittime/3, len(filelist), False))
+        else:
+            print("Calling foobar2000 for minimizing file. Please close the foobar window to continue",
+                end="...", flush=True)
+        subprocess.call(minimizecmdlist)
+        print("done")
+        return True
     else:
-        print("Calling foobar2000 for rebuilding the mp3 stream. Please close the foobar window to continue", end="...", flush=True)
-    subprocess.call(rebuildcmdlist)
-    print("done")
-    if (autowaittime >= 0):
-        print("Calling foobar2000 for fixing the mp3 metadata length. Automatically ending in:" +
-              str(autowaittime*len(filenamelist)/2), end="...", flush=True)
-        start_new_thread(
-            closefoobar, (foobarpath, autowaittime/2, len(filelist), True))
-    else:
-        print("Calling foobar2000 for fixing the mp3 metadata length. Please close the foobar window to continue", end="...", flush=True)
-    subprocess.call(fixcmdlist)
-    print("done")
-    if (autowaittime >= 0):
-        print("Calling foobar2000 for minimizing file. Automatically ending in " +
-              str(autowaittime*len(filenamelist)/3), end="...", flush=True)
-        start_new_thread(
-            closefoobar, (foobarpath, autowaittime/3, len(filelist), False))
-    else:
-        print("Calling foobar2000 for minimizing file. Please close the foobar window to continue",
-              end="...", flush=True)
-    subprocess.call(minimizecmdlist)
-    print("done")
-    return True
+        print("foobar2000 onyl available in windows - skipping. Use mp3diags manually in linux e.g.")
+        return False
 
 
 def closefoobar(foobarpath, sleeptime, filenumber, press):
