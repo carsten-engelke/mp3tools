@@ -17,8 +17,8 @@ __all__ = ["main", "mergemp3", "packsubdirs", "unpackdirs"]
 
 VERSIONSTR = "1.0.8 (C)opyright Carsten Engelke 2022"
 argmax = len(sys.argv) - 1
-foobarpath = "C:/Program Files (x86)/foobar2000/foobar2000.exe"
-mp3tagpath = "C:/Program Files (x86)/Mp3tag/Mp3tag.exe"
+foobarpath = "C:/Users/carst/scoop/shims/foobar2000.exe"
+mp3tagpath = "C:/Users/carst/scoop/shims/mp3tag.exe"
 decisionset = False
 mergesub = True
 workingdir = os.getcwd()
