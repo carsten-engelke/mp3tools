@@ -28,24 +28,35 @@ pip install mp3tools
 ## Usage
 Command-line-use:
 ```
-mp3tools -> start tools using standard wizard, just follow instructions.
+mp3tools -> start tools using the interactive wizard.
+mp3tools --help -> show available commands and options.
+mp3tools merge-mp3 --help -> show command-specific help.
 
-mp3tools merge-mp3 [dir] [subdir-mode] [foobarpath] [autowaittime]
-    [dir] determines the directory in which to perform. Use '.' to select the current directory
-    [subdir-mode] determines wheter all mp3 files in subfolders should be merged into one file each. ('True' to do so)")
-    [foobarpath] determines the path to your foobar2000 installation. Please provide in case it differs from 'C:/Program Files (x86)/foobar2000/foobar2000.exe'
-    [autowaittime] determines whether to automatically close foobar2000 after some seconds. Use -1 to disable and any number to set the waiting time.
+mp3tools merge-mp3 [DIR] [SUBDIR-MODE] [FOOBAR-PATH] [SECONDS]
+    DIR: folder containing MP3 files (default: current directory)
+    SUBDIR-MODE: merge each subfolder separately; if omitted, choose interactively
+    FOOBAR-PATH: legacy positional executable path; prefer --foobar-path
+    SECONDS: auto-close delay (default: 5; use -1 to disable)
 
-mp3tools pack-subdirs [group-size] [dir] [file-filter] [copy-mode]
-    [group-size] determines the number of files to put into each directory
-    [dir] determines the directory in which to perform the script. Use '.' to select the current directory
-    [file-filter] Filter the file list according to this
-    [copy-mode] If 'True', the files are copied into the created subfolders. If 'False' they are moved (Use with caution).
+mp3tools pack-subdirs [GROUP-SIZE] [DIR] [FILE-FILTER] [COPY-MODE]
+    GROUP-SIZE: maximum files per subdirectory (default: 15; must be positive)
+    DIR: folder containing files (default: current directory)
+    FILE-FILTER: case-sensitive substring selecting files (default: '.mp3')
+    COPY-MODE: copy rather than move (default: false)
 
-mp3tools unpack-subdirs [dir] [subdir-filter] [filter] [copy-mode] [remove-dir]")
-    [dir] determines the directory in which to perform the script. Use '.' to select the current directory
-    [subdir-filter] Filter the subdir list according to this. Use '*' to select any subdirectory
-    [filter] Filter the file list according to this
-    [copy-mode] If 'True', the files are copied into the parent folder. If 'False' they are moved (Use with caution).
-    [remove-dir] If 'True', the subdirectories are deleted. If 'False' they are left as they are.
+mp3tools unpack-subdirs [DIR] [SUBDIR-FILTER] [FILE-FILTER] [COPY-MODE] [REMOVE-SUBDIRS]
+    DIR: folder containing subdirectories (default: current directory)
+    SUBDIR-FILTER: case-sensitive substring; '*' selects all (default: 'subdir-')
+    FILE-FILTER: case-sensitive substring selecting files (default: '.mp3')
+    COPY-MODE: copy rather than move (default: false)
+    REMOVE-SUBDIRS: remove emptied subdirectories (default: true)
+
+mp3tools wait [SECONDS]
+    set the foobar2000 auto-close delay before opening the interactive wizard
+
+Boolean arguments accept true/false, yes/no, y/n, ja/nein, 1/0, and on/off.
+For COPY-MODE, 'move' is also accepted as false. Use --foobar-path PATH and
+--mp3tag-path PATH to set executable locations; both default to their configured
+paths and may be placed before or after a subcommand. The legacy `wait=SECONDS`
+form remains supported.
 ```
