@@ -26,37 +26,10 @@ Merge mp3 files and set correct audio length using foobar2000 with an automated 
 pip install mp3tools
 
 ## Usage
-Command-line-use:
 ```
-mp3tools -> start tools using the interactive wizard.
-mp3tools --help -> show available commands and options.
-mp3tools merge-mp3 --help -> show command-specific help.
-
-mp3tools merge-mp3 [DIR] [SUBDIR-MODE] [FOOBAR-PATH] [SECONDS]
-    DIR: folder containing MP3 files (default: current directory)
-    SUBDIR-MODE: merge each subfolder separately; if omitted, choose interactively
-    FOOBAR-PATH: legacy positional executable path; prefer --foobar-path
-    SECONDS: auto-close delay (default: 5; use -1 to disable)
-
-mp3tools pack-subdirs [GROUP-SIZE] [DIR] [FILE-FILTER] [COPY-MODE]
-    GROUP-SIZE: maximum files per subdirectory (default: 15; must be positive)
-    DIR: folder containing files (default: current directory)
-    FILE-FILTER: case-sensitive substring selecting files (default: '.mp3')
-    COPY-MODE: copy rather than move (default: false)
-
-mp3tools unpack-subdirs [DIR] [SUBDIR-FILTER] [FILE-FILTER] [COPY-MODE] [REMOVE-SUBDIRS]
-    DIR: folder containing subdirectories (default: current directory)
-    SUBDIR-FILTER: case-sensitive substring; '*' selects all (default: 'subdir-')
-    FILE-FILTER: case-sensitive substring selecting files (default: '.mp3')
-    COPY-MODE: copy rather than move (default: false)
-    REMOVE-SUBDIRS: remove emptied subdirectories (default: true)
-
-mp3tools wait [SECONDS]
-    set the foobar2000 auto-close delay before opening the interactive wizard
-
-Boolean arguments accept true/false, yes/no, y/n, ja/nein, 1/0, and on/off.
-For COPY-MODE, 'move' is also accepted as false. Use --foobar-path PATH and
---mp3tag-path PATH to set executable locations; both default to their configured
-paths and may be placed before or after a subcommand. The legacy `wait=SECONDS`
-form remains supported.
+Usage: mp3tools merge-mp3 [dir] [subdir-mode] [foobarpath] [autowaittime]
+Usage: mp3tools pack-subdirs [group-size] [dir] [file-filter] [copy-mode]
+Usage: mp3tools unpack-subdirs [dir] [subdir-filter] [file-filter] [copy-mode] [removesubdir-mode]
+Usage: mp3tools wait=seconds
+Note: This script depends on a foobar2000 installation! (Get it from: https://www.foobar2000.org/)
 ```
